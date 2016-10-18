@@ -28,7 +28,11 @@ public class GameListAdapter extends ArrayAdapter<Game> {
     private List<Game> mGamesList = new ArrayList<>();
     private int mResourceId;
 
-
+    private LinearLayout gameListLinearLayout;
+    private TextView gameListNameTextView;
+    private TextView gameListDescriptionTextView;
+    private RatingBar gameRatingBar;
+    private ImageView gamesListImageView;
 
     /**
      * Creates a new <code>GameListAdapter</code> given a mContext, resource id and list of games.
@@ -54,40 +58,39 @@ public class GameListAdapter extends ArrayAdapter<Game> {
     @Override
     public View getView(int pos, View convertView, ViewGroup parent)
     {
-        final Game selectedGame = mGamesList.get(pos);
-
         LayoutInflater inflater =
                 (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(mResourceId, null);
 
-        LinearLayout gameListLinearLayout =
-                (LinearLayout) view.findViewById(R.id.gameListLinearLayout);
-        ImageView gameListImageView =
-                (ImageView) view.findViewById(R.id.gameListImageView);
-        TextView gameListNameTextView =
-                (TextView) view.findViewById(R.id.gameListNameTextView);
-        TextView gameListDescriptionTextView =
-                (TextView) view.findViewById(R.id.gameListDescriptionTextView);
-        RatingBar gameListRatingBar =
-                (RatingBar) view.findViewById(R.id.gameListRatingBar);
+        //TODO:  Code for getting the view of a list item correctly inflated.
+        final Game game = mGamesList.get(pos);
 
-        gameListLinearLayout.setTag(selectedGame);
-        gameListNameTextView.setText(selectedGame.getName());
-        gameListDescriptionTextView.setText(selectedGame.getDescription());
-        gameListRatingBar.setRating(selectedGame.getRating());
+        gameListLinearLayout = (LinearLayout) view.findViewById(R.id.gameListLinearLayout);
+        gameListNameTextView = (TextView) view.findViewById(R.id.gameListNameTextView);
+        gameListDescriptionTextView = (TextView) view.findViewById(R.id.gameListDescriptionTextView);
+        gameRatingBar = (RatingBar) view.findViewById(R.id.gameListRatingBar);
+        gamesListImageView = (ImageView) view.findViewById(R.id.gameListImageView);
+
+        gameListLinearLayout.setTag(game);
+
+        String gameName = game.getName();
+        String gameDescription = game.getDescription();
+        float gameRating = game.getRating();
+        //String gameImageName = game.getImageName();
+
+        gameListNameTextView.setText(gameName);
+        gameListDescriptionTextView.setText(gameDescription);
+        gameRatingBar.setRating(gameRating);
 
         AssetManager am = mContext.getAssets();
         try {
-            InputStream stream = am.open(selectedGame.getImageName());
-            Drawable event = Drawable.createFromStream(stream, selectedGame.getName());
-            gameListImageView.setImageDrawable(event);
+            InputStream stream = am.open(game.getImageName());
+            Drawable event = Drawable.createFromStream(stream, game.getName());
+            gamesListImageView.setImageDrawable(event);
         }
-        catch (IOException ex)
-        {
-            Log.e("Gamers Delight", "Error loading " + selectedGame.getImageName(), ex);
+        catch (IOException err) {
+            Log.e("Gamers Delight", "Error Loading Image" + err.getMessage(), err);
         }
-
-
 
         return view;
     }
