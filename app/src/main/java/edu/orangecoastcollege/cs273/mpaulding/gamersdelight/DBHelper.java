@@ -30,13 +30,13 @@ class DBHelper extends SQLiteOpenHelper {
     public void onCreate (SQLiteDatabase database){
         // TODO:  Define the SQL statement to create a new table with the fields above.
         // TODO:  Primary key should auto increment
-        // TODO:  Exceute the SQL statement
-        String gameTable = "CREATE TABLE " + DATABASE_TABLE + " ("
+        // TODO:  Execute the SQL statement
+        String gameTable = "CREATE TABLE " + DATABASE_TABLE + "("
                 + KEY_FIELD_ID + "  INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + FIELD_NAME + " TEXT"
-                + FIELD_DESCRIPTION + " TEXT"
-                + FIELD_RATING + " REAL"
-                + FIELD_IMAGE_NAME + " TEXT" + " )";
+                + FIELD_NAME + " TEXT, "
+                + FIELD_DESCRIPTION + " TEXT, "
+                + FIELD_RATING + " REAL, "
+                + FIELD_IMAGE_NAME + " TEXT" + ")";
         database.execSQL(gameTable);
     }
 

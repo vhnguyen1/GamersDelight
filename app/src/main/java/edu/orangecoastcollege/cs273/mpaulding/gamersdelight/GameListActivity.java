@@ -52,6 +52,12 @@ public class GameListActivity extends AppCompatActivity {
 
         // TODO: Use an Intent to start the GameDetailsActivity with the data it needs to correctly inflate its views.
         Intent gamesListIntent = new Intent(this, GameDetailsActivity.class);
+
+        gamesListIntent.putExtra("", "Name");
+        gamesListIntent.putExtra("", "Description");
+        gamesListIntent.putExtra("", "Rating");
+        gamesListIntent.putExtra("", "Image");
+
         startActivity(gamesListIntent);
     }
 
@@ -63,9 +69,6 @@ public class GameListActivity extends AppCompatActivity {
         // TODO:  Make sure the list adapter is updated
         gamesListAdapter.notifyDataSetChanged();
         // TODO:  Clear all entries the user made (edit text and rating bar)
-        //nameEditText = (EditText) findViewById(R.id.nameEditText);
-        //descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
-        //gameRatingBar = (RatingBar) findViewById(R.id.gameListRatingBar);
         nameEditText.setText("");
         descriptionEditText.setText("");
         gameRatingBar.setRating(0.0f);

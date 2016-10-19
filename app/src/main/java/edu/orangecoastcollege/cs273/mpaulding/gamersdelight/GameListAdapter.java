@@ -71,13 +71,12 @@ public class GameListAdapter extends ArrayAdapter<Game> {
         gameRatingBar = (RatingBar) view.findViewById(R.id.gameListRatingBar);
         gamesListImageView = (ImageView) view.findViewById(R.id.gameListImageView);
 
-        gameListLinearLayout.setTag(game);
-
         String gameName = game.getName();
         String gameDescription = game.getDescription();
         float gameRating = game.getRating();
         //String gameImageName = game.getImageName();
 
+        gameListLinearLayout.setTag(game);
         gameListNameTextView.setText(gameName);
         gameListDescriptionTextView.setText(gameDescription);
         gameRatingBar.setRating(gameRating);
