@@ -58,10 +58,12 @@ public class GameListActivity extends AppCompatActivity {
         // TODO: Use an Intent to start the GameDetailsActivity with the data it needs to correctly inflate its views.
         Intent gamesListIntent = new Intent(this, GameDetailsActivity.class);
 
-        String gameImageName = "avatar.png";
-        String gameName = gameNameEditText.getText().toString();
-        String gameDescription = gameDescriptionEditText.getText().toString();
-        String gameRating = String.valueOf(gameRatingBar.getRating());
+        final Game game = gamesList.get(0);
+
+        String gameImageName = game.getImageName();
+        String gameName = game.getName();
+        String gameDescription = game.getDescription();
+        String gameRating = String.valueOf(game.getRating());
 
         //gamesListIntent.putExtra("avatar.png", "Image");
         //gamesListIntent.putExtra("", "Name");
