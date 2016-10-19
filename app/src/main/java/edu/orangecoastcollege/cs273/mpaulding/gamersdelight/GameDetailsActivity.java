@@ -29,7 +29,20 @@ public class GameDetailsActivity extends AppCompatActivity {
 
         gameDetailsNameTextView.setText(intentFromGameListActivity.getStringExtra("Name"));
         gameDetailsDescriptionTextView.setText(intentFromGameListActivity.getStringExtra("Description"));
+        gameDetailsRatingBar.setRating(Float.parseFloat(intentFromGameListActivity.getStringExtra("Rating")));
 
+
+        /*
+        AssetManager am = this.getAssets();
+        try {
+            InputStream stream = am.open(intentFromGameListActivity.getStringExtra("Image"));
+            Drawable event = Drawable.createFromStream(stream, intentFromGameListActivity.getStringExtra("Image"));
+            gameDetailsImageView.setImageDrawable(event);
+        }
+        catch (IOException err) {
+            Log.e("Gamers Delight", "Error Loading Image" + err.getMessage(), err);
+        }
+        */
         //this.finish();
     }
 }
