@@ -13,6 +13,15 @@
     android:orientation="vertical"
     android:background="@color/aqua">
 
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gameDetailsNameTextView"
+        android:layout_weight="0"
+        android:textSize="30sp"
+        android:layout_marginBottom="10dp" />
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -23,15 +32,6 @@
         android:layout_marginBottom="20dp"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/gameDetailsNameTextView"
-        android:layout_weight="0"
-        android:textSize="30sp"
-        android:layout_marginBottom="10dp" />
 
     <TextView
         android:text="TextView"

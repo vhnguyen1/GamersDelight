@@ -58,20 +58,20 @@ public class GameListActivity extends AppCompatActivity {
         // TODO: Use an Intent to start the GameDetailsActivity with the data it needs to correctly inflate its views.
         Intent gamesListIntent = new Intent(this, GameDetailsActivity.class);
 
+        String gameImageName = "avatar.png";
         String gameName = gameNameEditText.getText().toString();
         String gameDescription = gameDescriptionEditText.getText().toString();
         String gameRating = String.valueOf(gameRatingBar.getRating());
-        String gameImageName = "avatar.png";
 
+        //gamesListIntent.putExtra("avatar.png", "Image");
         //gamesListIntent.putExtra("", "Name");
         //gamesListIntent.putExtra("", "Description");
         //gamesListIntent.putExtra(String.valueOf(0.0f), "Rating");
-        //gamesListIntent.putExtra("avatar.png", "Image");
 
+        gamesListIntent.putExtra(gameImageName, "Image");
         gamesListIntent.putExtra(gameName, "Name");
         gamesListIntent.putExtra(gameDescription, "Description");
         gamesListIntent.putExtra(gameRating, "Rating");
-        gamesListIntent.putExtra(gameImageName, "Image");
 
         startActivity(gamesListIntent);
     }
@@ -84,19 +84,24 @@ public class GameListActivity extends AppCompatActivity {
         //gameRatingBar = (RatingBar) findViewById(R.id.gameRatingBar);
 
         String gameName = gameNameEditText.getText().toString();
-        if (gameName.isEmpty())
+        String temp = gameName.replaceAll("\\s+","");
+
+        if (temp.isEmpty())
             Toast.makeText(this, "Game name cannot be empty.", Toast.LENGTH_SHORT).show();
         else {
             String gameDescription = gameDescriptionEditText.getText().toString();
-            if (gameDescription.isEmpty())
+            temp = gameDescription.replaceAll("\\s+","");
+
+            if (temp.isEmpty())
                 Toast.makeText(this, "Game description cannot be empty.", Toast.LENGTH_SHORT).show();
             else {
-                float gameRating = gameRatingBar.getRating();
                 String gameImageName = "avatar.png";
+                float gameRating = gameRatingBar.getRating();
 
                 //Game newGame = new Game("", "", 0.0f, "avatar.png");
                 Game newGame = new Game(gameName, gameDescription, gameRating, gameImageName);
                 gamesListAdapter.add(newGame);
+                Toast.makeText(this, gameName + " added successfully!", Toast.LENGTH_SHORT).show();
 
                 // TODO:  Make sure the list adapter is updated
                 gamesListAdapter.notifyDataSetChanged();
