@@ -30,13 +30,13 @@ class DBHelper extends SQLiteOpenHelper {
     public void onCreate (SQLiteDatabase database){
         // TODO:  Define the SQL statement to create a new table with the fields above.
         // TODO:  Primary key should auto increment
-        // TODO:  Execute the SQL statement
         String gameTable = "CREATE TABLE " + DATABASE_TABLE + "("
                 + KEY_FIELD_ID + "  INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + FIELD_NAME + " TEXT, "
                 + FIELD_DESCRIPTION + " TEXT, "
                 + FIELD_RATING + " REAL, "
                 + FIELD_IMAGE_NAME + " TEXT" + ")";
+        // TODO:  Execute the SQL statement
         database.execSQL(gameTable);
     }
 
@@ -55,10 +55,9 @@ class DBHelper extends SQLiteOpenHelper {
     public void addGame(Game game) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-
         // TODO:  Write the code to add a new game to the database
         values.put(FIELD_NAME, game.getName());
-        values.put(FIELD_DESCRIPTION, game.getDescription());
+        values.put( FIELD_DESCRIPTION, game.getDescription());
         values.put(FIELD_RATING, game.getRating());
         values.put(FIELD_IMAGE_NAME, game.getImageName());
 
@@ -98,8 +97,7 @@ class DBHelper extends SQLiteOpenHelper {
         return gameList;
     }
 
-    public void deleteAllGames()
-    {
+    public void deleteAllGames() {
         // TODO:  Write the code to delete all games from the database
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(DATABASE_TABLE, null, null);
@@ -122,7 +120,6 @@ class DBHelper extends SQLiteOpenHelper {
     }
 
     public Game getGame(int id) {
-
         // TODO:  Write the code to get a specific game from the database
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(

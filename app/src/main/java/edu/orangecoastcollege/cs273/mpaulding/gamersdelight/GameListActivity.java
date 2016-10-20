@@ -101,8 +101,9 @@ public class GameListActivity extends AppCompatActivity {
                 //Game newGame = new Game("", "", 0.0f, "avatar.png");
                 Game newGame = new Game(gameName, gameDescription, gameRating, gameImageName);
 
-                gamesListAdapter.add(newGame);
                 db.addGame(newGame);
+                gamesList.add(newGame);
+                gamesListAdapter.add(newGame);
 
                 Toast.makeText(this, gameName + " added successfully!", Toast.LENGTH_SHORT).show();
 
