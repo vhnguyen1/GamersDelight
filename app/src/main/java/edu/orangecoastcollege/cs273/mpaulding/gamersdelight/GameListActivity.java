@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ public class GameListActivity extends AppCompatActivity {
     private List<Game> gamesList;
     private GameListAdapter gamesListAdapter;
     private ListView gamesListView;
+    private LinearLayout gameLinearLayout;
 
     private EditText gameNameEditText;
     private EditText gameDescriptionEditText;
@@ -40,6 +42,7 @@ public class GameListActivity extends AppCompatActivity {
         db.addGame(new Game("Doom FLH", "First person shooter", 2.5f, "doomflh.png"));
         db.addGame(new Game("Battlefield 1", "Single player campaign", 5.0f, "battlefield1.png"));
 
+        gameLinearLayout = (LinearLayout) findViewById(R.id.gameListLinearLayout);
         gameNameEditText = (EditText) findViewById(nameEditText);
         gameDescriptionEditText = (EditText) findViewById(descriptionEditText);
         gameRatingBar = (RatingBar) findViewById(R.id.gameRatingBar);
@@ -54,32 +57,27 @@ public class GameListActivity extends AppCompatActivity {
     }
 
     public void viewGameDetails(View view) {
-
         // TODO: Use an Intent to start the GameDetailsActivity with the data it needs to correctly inflate its views.
         Intent gamesListIntent = new Intent(this, GameDetailsActivity.class);
 
-        final Game game = gamesList.get(0);
+        final Game game = (Game) view.getTag();
 
-        String gameImageName = game.getImageName();
+        Toast.makeText(this, "Loading " + game.getName() + "...", Toast.LENGTH_SHORT).show();
+
         String gameName = game.getName();
         String gameDescription = game.getDescription();
         String gameRating = String.valueOf(game.getRating());
+        String gameImageName = game.getImageName();
 
-        //gamesListIntent.putExtra("avatar.png", "Image");
-        //gamesListIntent.putExtra("", "Name");
-        //gamesListIntent.putExtra("", "Description");
-        //gamesListIntent.putExtra(String.valueOf(0.0f), "Rating");
-
-        gamesListIntent.putExtra(gameImageName, "Image");
-        gamesListIntent.putExtra(gameName, "Name");
-        gamesListIntent.putExtra(gameDescription, "Description");
-        gamesListIntent.putExtra(gameRating, "Rating");
+        gamesListIntent.putExtra("Name", gameName);
+        gamesListIntent.putExtra("Description", gameDescription);
+        gamesListIntent.putExtra("Rating", gameRating);
+        gamesListIntent.putExtra("Image", gameImageName);
 
         startActivity(gamesListIntent);
     }
 
-    public void addGame(View view)
-    {
+    public void addGame(View view) {
         // TODO:  Add a game to the database, list, list adapter
         //gameNameEditText = (EditText) findViewById(nameEditText);
         //gameDescriptionEditText = (EditText) findViewById(descriptionEditText);
@@ -102,7 +100,10 @@ public class GameListActivity extends AppCompatActivity {
 
                 //Game newGame = new Game("", "", 0.0f, "avatar.png");
                 Game newGame = new Game(gameName, gameDescription, gameRating, gameImageName);
+
                 gamesListAdapter.add(newGame);
+                db.addGame(newGame);
+
                 Toast.makeText(this, gameName + " added successfully!", Toast.LENGTH_SHORT).show();
 
                 // TODO:  Make sure the list adapter is updated
@@ -116,8 +117,7 @@ public class GameListActivity extends AppCompatActivity {
         }
     }
 
-    public void clearAllGames(View view)
-    {
+    public void clearAllGames(View view) {
         // TODO:  Delete all games from the database and lists
         if (!gamesList.isEmpty()) {
             gamesList.clear();

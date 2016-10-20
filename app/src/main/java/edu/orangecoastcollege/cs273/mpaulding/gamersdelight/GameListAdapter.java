@@ -74,7 +74,7 @@ public class GameListAdapter extends ArrayAdapter<Game> {
         String gameName = game.getName();
         String gameDescription = game.getDescription();
         float gameRating = game.getRating();
-        //String gameImageName = game.getImageName();
+        String gameImageName = game.getImageName();
 
         gameListLinearLayout.setTag(game);
         gameListNameTextView.setText(gameName);
@@ -83,12 +83,12 @@ public class GameListAdapter extends ArrayAdapter<Game> {
 
         AssetManager am = mContext.getAssets();
         try {
-            InputStream stream = am.open(game.getImageName());
-            Drawable event = Drawable.createFromStream(stream, game.getName());
+            InputStream stream = am.open(gameImageName);
+            Drawable event = Drawable.createFromStream(stream, gameName);
             gamesListImageView.setImageDrawable(event);
         }
         catch (IOException err) {
-            Log.e("Gamers Delight", "Error Loading Image" + err.getMessage(), err);
+            Log.e("Gamers Delight", "Error Loading Image " + err.getMessage(), err);
         }
 
         return view;
